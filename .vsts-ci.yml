@@ -1,19 +1,16 @@
-# YAML build definition for this app
-# This file is needed only when you want to model your build definitions using YAML
 steps:
-- script: npm install
 
-- task: gulp@0
-  inputs:
-    publishJUnitResults: true
+- task: Npm@1
+  displayName: npm install
 
-- task: archiveFiles@1
+- task: Gulp@0
   inputs:
-    rootFolder: $(Build.SourcesDirectory)
-    archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    publishJUnitResults: "true"
+  displayName: Gulp
 
-- task: publishBuildArtifacts@1
+- task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
-    ArtifactName: drop
-    ArtifactType: Container
+    PathtoPublish: $(Build.SourcesDirectory)
+    ArtifactName: "drop"
+    ArtifactType: "Container"
+  displayName: Publish the artifacts
